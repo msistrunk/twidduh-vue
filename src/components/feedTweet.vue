@@ -15,31 +15,33 @@
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faUserCircle)
+library.add(faUserCircle);
 
 export default {
-  name: 'feedTweet',
-  data: function () {
-    return {
-    }
+  name: "feedTweet",
+  data: function() {
+    return {};
   },
   props: {
     tweet: Object,
-  }
-}
+  },
+  created: function() {
+    console.log(this.tweet, "tweet");
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .tweet {
-    display: grid;
-    outline-style: solid;
-    grid-template-columns: 50px auto;
-  }
-  .tweetText {
-    text-align: left;
-  }
+.tweet {
+  display: grid;
+  outline-style: solid;
+  grid-template-columns: 50px auto;
+}
+.tweetText {
+  text-align: left;
+}
 </style>

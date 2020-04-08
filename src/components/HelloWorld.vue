@@ -1,29 +1,89 @@
 <template>
   <div class="hello">
-    <feedTweet v-bind:key="tweet.text" v-for="tweet in tweets" v-bind:tweet="tweet" />
+    <button v-on:click="firebaseTest">register</button>
+    <button v-on:click="loginTest">login</button>
+    <button v-on:click="logoutTest">logout</button>
+    <button v-on:click="addTest">TWEET</button>
+    <button v-on:click="deleteTest">TWEET</button>
+    <feedTweet
+      v-bind:key="tweet.text"
+      v-for="tweet in tweets"
+      v-bind:tweet="tweet"
+    />
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import feedTweet from './feedTweet.vue';
+import firebase from "../firebase";
+import feedTweet from "./feedTweet.vue";
 
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   components: {
     feedTweet,
   },
-  data: function () {
+  data: function() {
     return {
-      tweets: {} 
-    }
+      tweets: {},
+    };
   },
-  mounted () {
-    axios
-      .get('https://twidduh-api.herokuapp.com/tweets')
-      .then(response => (this.tweets = response.data))
-  }
-}
+  methods: {
+    firebaseTest: () => {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword("bigmeech@sistrunk.codes", "Abcd1234!")
+        .then(() => {
+          console.log("Registered!");
+        })
+        .catch(() => {
+          console.log("Registration Failed!");
+        });
+    },
+    loginTest: () => {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword("bigmeech@sistrunk.codes", "Abcd1234!")
+        .then(() => {
+          console.log("Logged in!");
+        })
+        .catch(() => {
+          console.log("Log in Failed!");
+        });
+    },
+    logoutTest: () => {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          console.log("Logged Out!");
+        })
+        .catch(() => {
+          console.log("Logout Failed!");
+        });
+    },
+    addTest: () => {
+      const messagesRef = firebase.database().ref("messages");
+      const message = {
+        dummyStuffs: "meech!!",
+      };
+      messagesRef.push(message);
+    },
+    deleteTest: () => {
+      const messageRef = firebase
+        .database()
+        .ref(`/messages/-M4N40cn4cpvkBAVWmNU`);
+      messageRef.remove();
+    },
+  },
+  created: function() {
+    const messagesRef = firebase.database().ref("messages");
+    messagesRef.on("value", (snapshot) => {
+      const allMessages = snapshot.val() ?? [];
+      this.tweets = allMessages;
+      console.log(allMessages, "allMessages");
+    });
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
