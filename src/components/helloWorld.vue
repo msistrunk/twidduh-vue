@@ -1,10 +1,6 @@
 <template>
   <div class="hello">
-    <button v-on:click="firebaseTest">register</button>
-    <button v-on:click="loginTest">login</button>
     <button v-on:click="logoutTest">logout</button>
-    <button v-on:click="addTest">TWEET</button>
-    <button v-on:click="deleteTest">TWEET</button>
     <feedTweet
       v-bind:key="tweet.text"
       v-for="tweet in tweets"
@@ -20,36 +16,14 @@ import feedTweet from "./feedTweet.vue";
 export default {
   name: "HelloWorld",
   components: {
-    feedTweet,
+    feedTweet
   },
   data: function() {
     return {
-      tweets: {},
+      tweets: {}
     };
   },
   methods: {
-    firebaseTest: () => {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword("bigmeech@sistrunk.codes", "Abcd1234!")
-        .then(() => {
-          console.log("Registered!");
-        })
-        .catch(() => {
-          console.log("Registration Failed!");
-        });
-    },
-    loginTest: () => {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword("bigmeech@sistrunk.codes", "Abcd1234!")
-        .then(() => {
-          console.log("Logged in!");
-        })
-        .catch(() => {
-          console.log("Log in Failed!");
-        });
-    },
     logoutTest: () => {
       firebase
         .auth()
@@ -64,7 +38,7 @@ export default {
     addTest: () => {
       const messagesRef = firebase.database().ref("messages");
       const message = {
-        dummyStuffs: "meech!!",
+        dummyStuffs: "meech!!"
       };
       messagesRef.push(message);
     },
@@ -73,16 +47,16 @@ export default {
         .database()
         .ref(`/messages/-M4N40cn4cpvkBAVWmNU`);
       messageRef.remove();
-    },
+    }
   },
   created: function() {
     const messagesRef = firebase.database().ref("messages");
-    messagesRef.on("value", (snapshot) => {
+    messagesRef.on("value", snapshot => {
       const allMessages = snapshot.val() ?? [];
       this.tweets = allMessages;
       console.log(allMessages, "allMessages");
     });
-  },
+  }
 };
 </script>
 
