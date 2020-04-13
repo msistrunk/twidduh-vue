@@ -1,52 +1,47 @@
 <template>
-  <v-container class="fill-hieght" fluid>
-    <v-row align="center" justify="center">
-      <v-col cols="12" sm="8" md="8">
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md4>
         <v-card class="elevation-12">
-          <v-row align="center" justify="center">
-            <v-col cols="12" md="8">
-              <v-form ref="form">
-                <v-text-field
-                  label="Email"
-                  :rules="emailRules"
-                  v-model="email"
-                ></v-text-field>
-                <v-text-field
-                  label="Password"
-                  v-model="password"
-                  :rules="passwordRules"
-                  :type="showPassword ? 'text' : 'password'"
-                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="showPassword = !showPassword"
-                ></v-text-field>
-                <v-row no-gutters>
-                  <v-col cols="6" class="text-center">
-                    <v-btn
-                      large
-                      color="primary"
-                      cols="6"
-                      @click="login"
-                      :loading="loading"
-                      >Login</v-btn
-                    >
-                  </v-col>
-                  <v-col cols="6">
-                    <v-btn
-                      large
-                      color="primary"
-                      cols="6"
-                      @click="register"
-                      :loading="loading"
-                      >Register</v-btn
-                    >
-                  </v-col>
-                </v-row>
-              </v-form>
-            </v-col>
-          </v-row>
+          <v-card-text>
+            <v-form>
+              <v-text-field
+                label="Email"
+                :rules="emailRules"
+                v-model="email"
+              ></v-text-field>
+              <v-text-field
+                label="Password"
+                v-model="password"
+                :rules="passwordRules"
+                :type="showPassword ? 'text' : 'password'"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="showPassword = !showPassword"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              large
+              color="primary"
+              cols="6"
+              @click="login"
+              :loading="loading"
+              >Login</v-btn
+            >
+            <v-spacer></v-spacer>
+            <v-btn
+              large
+              color="primary"
+              cols="6"
+              @click="register"
+              :loading="loading"
+              >Register</v-btn
+            >
+          </v-card-actions>
         </v-card>
-      </v-col>
-    </v-row>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 

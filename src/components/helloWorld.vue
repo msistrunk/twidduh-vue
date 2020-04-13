@@ -54,7 +54,6 @@ export default {
     messagesRef.on("value", snapshot => {
       const allMessages = snapshot.val() ?? [];
       this.tweets = allMessages;
-      console.log(allMessages, "allMessages");
     });
   }
 };

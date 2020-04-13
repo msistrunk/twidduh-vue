@@ -26,11 +26,9 @@ export default {
     return {};
   },
   props: {
-    tweet: Object,
+    tweet: Object
   },
-  created: function() {
-    console.log(this.tweet, "tweet");
-  },
+  created: function() {}
 };
 </script>
 
